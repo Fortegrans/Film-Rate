@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FilmApp | Ana Sayfa</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .filter-tag {
+      background: linear-gradient(45deg, #dc3545, #fd7e14);
+      border: none;
+      border-radius: 20px;
+      padding: 8px 16px;
+      margin: 4px;
+      font-size: 14px;
+    }
+    
+    .filter-section {
+      background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+      border: 1px solid #444;
+      border-radius: 10px;
+    }
+    
+    .film-count {
+      background: linear-gradient(45deg, #dc3545, #e83e8c);
+      color: white;
+      border-radius: 10px;
+      padding: 10px;
+    }
+    
+    .form-select[multiple] {
+      height: 120px;
+    }
+    
+    .form-select[multiple] option:checked {
+      background-color: #dc3545;
+      color: white;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+      transition: transform 0.3s ease;
+    }
+    
+    .trailer-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loading-spinner {
+      display: none;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .user-rating-badge {
+      background: linear-gradient(45deg, #ffc107, #fd7e14);
+      color: black;
+      border-radius: 10px;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="bg-dark text-white">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-black fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand text-danger fw-bold fs-3" href="index.html">FilmApp</a>
+      <button class="navbar-toggler bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-white" href="index.html">Ana Sayfa</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="index.html#popular-films">Popüler</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="index.html#new-films">Yeni</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="favoriler.html">Favoriler</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="login-panel.html">Giriş Yap/Üye Ol</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="turlerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Türler
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="turlerDropdown">
+              <li><a class="dropdown-item text-white" href="turler.html#aksiyon">Aksiyon</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#gerilim">Gerilim</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#korku">Korku</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#polisiye">Polisiye</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#bilim-kurgu">Bilim Kurgu</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#belgesel">Belgesel</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#animasyon">Animasyon</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#anime">Anime</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#dram">Dram</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#komedi">Komedi</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#macera">Macera</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- TMDB Tarzı Filtreleme Paneli -->
+  <div class="container mt-5 pt-5">
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="bg-black p-4 rounded-3 border border-secondary">
+          <div class="row align-items-center">
+            <!-- Arama -->
+            <div class="col-md-4 mb-3 mb-md-0">
+              <div class="input-group">
+                <span class="input-group-text bg-dark border-secondary text-white">🔍</span>
+                <input type="text" id="searchInput" class="form-control bg-dark text-white border-secondary" 
+                       placeholder="Film, dizi, oyuncu ara...">
+              </div>
+            </div>
+            
+            <!-- Filtre Butonu -->
+            <div class="col-md-3 mb-3 mb-md-0">
+              <button class="btn btn-outline-danger w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse">
+                🎛️ Filtreler
+              </button>
+            </div>
+            
+            <!-- Sıralama -->
+            <div class="col-md-3">
+              <select id="sortFilter" class="form-select bg-dark text-white border-secondary">
+                <option value="popular">Popüler</option>
+                <option value="rating-desc">Yüksek Puan</option>
+                <option value="rating-asc">Düşük Puan</option>
+                <option value="year-desc">Yeni Filmler</option>
+                <option value="year-asc">Eski Filmler</option>
+                <option value="title">A'dan Z'ye</option>
+                <option value="user-rating">Kullanıcı Puanı</option>
+              </select>
+            </div>
+            
+            <!-- Filtreleri Sıfırla -->
+            <div class="col-md-2">
+              <button id="resetFilters" class="btn btn-outline-secondary w-100">🗑️ Temizle</button>
+            </div>
+          </div>
+
+          <!-- Genişletilebilir Filtre Bölümü -->
+          <div class="collapse mt-4" id="filterCollapse">
+            <div class="row g-4">
+              <!-- Kategori -->
+              <div class="col-md-3">
+                <label class="form-label text-white">🎬 Kategori</label>
+                <select id="categoryFilter" class="form-select bg-dark text-white border-secondary" multiple size="4">
+                  <option value="Aksiyon">Aksiyon</option>
+                  <option value="Bilim Kurgu">Bilim Kurgu</option>
+                  <option value="Anime">Anime</option>
+                  <option value="Gerilim">Gerilim</option>
+                  <option value="Dram">Dram</option>
+                  <option value="Komedi">Komedi</option>
+                  <option value="Korku">Korku</option>
+                  <option value="Suç">Suç</option>
+                  <option value="Romantik">Romantik</option>
+                  <option value="Animasyon">Animasyon</option>
+                  <option value="Macera">Macera</option>
+                  <option value="Savaş">Savaş</option>
+                  <option value="Western">Western</option>
+                  <option value="Fantastik">Fantastik</option>
+                  <option value="Müzikal">Müzikal</option>
+                </select>
+                <small class="text-secondary">Çoklu seçim için Ctrl tuşuna basın</small>
+              </div>
+
+              <!-- Puan Aralığı -->
+              <div class="col-md-3">
+                <label class="form-label text-white">⭐ Puan</label>
+                <select id="ratingFilter" class="form-select bg-dark text-white border-secondary">
+                  <option value="">Tüm Puanlar</option>
+                  <option value="9">9+ Mükemmel</option>
+                  <option value="8">8+ Çok İyi</option>
+                  <option value="7">7+ İyi</option>
+                  <option value="6">6+ Orta</option>
+                  <option value="0">Tüm Filmler</option>
+                </select>
+              </div>
+
+              <!-- Yıl Aralığı -->
+              <div class="col-md-3">
+                <label class="form-label text-white">📅 Yıl</label>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <input type="number" id="yearFrom" class="form-control bg-dark text-white border-secondary" 
+                           placeholder="Başlangıç" min="1950" max="2025">
+                  </div>
+                  <div class="col-6">
+                    <input type="number" id="yearTo" class="form-control bg-dark text-white border-secondary" 
+                           placeholder="Bitiş" min="1950" max="2025">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Film Sayısı Gösterge -->
+              <div class="col-md-3">
+                <div class="bg-dark p-3 rounded text-center">
+                  <h6 class="text-white mb-1">Bulunan Filmler</h6>
+                  <h4 class="text-danger mb-0" id="filmCount">0</h4>
+                  <small class="text-secondary">film bulundu</small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Seçili Filtreler -->
+            <div class="mt-3" id="activeFilters">
+              <small class="text-secondary">Seçili filtreler:</small>
+              <div id="filterTags" class="mt-1"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ana içerik -->
+  <div class="container mt-4">
+
+    <!-- Yükleniyor Spinner -->
+    <div class="loading-spinner" id="loadingSpinner">
+      <div class="spinner-border text-danger" role="status">
+        <span class="visually-hidden">Yükleniyor...</span>
+      </div>
+      <p class="text-white mt-3">Filmler yükleniyor...</p>
+    </div>
+
+    <!-- Tüm Filmler (Filtrelenmiş) -->
+    <section class="mb-5">
+      <h4 class="mb-3 text-danger">🎬 Tüm Filmler</h4>
+      <div class="row" id="all-films">
+        <!-- Filmler buraya eklenecek -->
+      </div>
+    </section>
+
+    <!-- Çok Beğenilen Filmler -->
+    <section class="mb-5">
+      <h4 class="mb-3 text-danger">🔥 Çok Beğenilen Filmler</h4>
+      <div class="row flex-nowrap overflow-auto" id="popular-films">
+        <!-- Popüler filmler buraya eklenecek -->
+      </div>
+    </section>
+
+    <!-- Yeni Çıkan Filmler -->
+    <section class="mb-5">
+      <h4 class="mb-3 text-danger">🆕 Yeni Çıkan Filmler</h4>
+      <div class="row flex-nowrap overflow-auto" id="new-films">
+        <!-- Yeni filmler buraya eklenecek -->
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Fragman Modal -->
+  <div class="trailer-modal" id="trailerModal">
+    <button class="btn btn-danger position-absolute top-0 end-0 m-3" onclick="closeTrailer()" style="z-index: 10000;">✕</button>
+    <iframe id="trailerIframe" width="80%" height="70%" style="border: none;" allowfullscreen></iframe>
+  </div>
+
+  <footer class="text-center py-3 mt-5 bg-black text-secondary">
+    © 2025 FilmApp | Tüm Hakları Saklıdır
+  </footer>
+
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- JavaScript -->
+  <script>
+    // TMDB Tarzı Filtreleme Sistemi
+    let allFilms = [];
+
+    // Film için ortalama puanı hesapla
+    function calculateAverageRating(film) {
+      const ratings = JSON.parse(localStorage.getItem('filmRatings')) || {};
+      let userRatings = [];
+      
+      Object.keys(ratings).forEach(username => {
+        if (ratings[username][film.id]) {
+          userRatings.push(ratings[username][film.id]);
+        }
+      });
+
+      return userRatings.length > 0 
+        ? (userRatings.reduce((a, b) => a + b, 0) / userRatings.length).toFixed(1)
+        : film.rating;
+    }
+
+    // Kullanıcının kendi puanını al
+    function getUserRating(filmId) {
+      const user = JSON.parse(localStorage.getItem('loggedUser'));
+      if (!user) return null;
+      
+      const ratings = JSON.parse(localStorage.getItem('filmRatings')) || {};
+      const userRatings = ratings[user.username] || {};
+      
+      return userRatings[filmId] || null;
+    }
+
+    // Film kartı oluştur
+    function createFilmCard(film) {
+      const averageRating = calculateAverageRating(film);
+      const userRating = getUserRating(film.id);
+      const ratings = JSON.parse(localStorage.getItem('filmRatings')) || {};
+      let totalVotes = 0;
+      
+      Object.keys(ratings).forEach(username => {
+        if (ratings[username][film.id]) {
+          totalVotes++;
+        }
+      });
+
+      const col = document.createElement('div');
+      col.className = 'col-6 col-md-3 col-lg-2 mb-4';
+      col.innerHTML = `
+        <div class="card bg-black border-0 position-relative overflow-hidden h-100">
+          <img src="${film.image}" class="card-img-top rounded-3" alt="${film.title}" style="height: 300px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/300x400/333333/FFFFFF?text=Resim+Yüklenemedi'">
+          <div class="card-body text-center">
+            <h6 class="card-title text-white">${film.title}</h6>
+            <p class="card-text text-secondary mb-1">${film.category} | ⭐ ${averageRating}</p>
+            ${totalVotes > 0 ? `<small class="text-warning">${totalVotes} oy</small>` : ''}
+            ${userRating ? `<div class="user-rating-badge mt-1">Sen: ${userRating}/10</div>` : ''}
+          </div>
+          <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-center overlay" style="background: rgba(0,0,0,0.8); opacity:0; transition: opacity 0.3s;">
+            <button class="btn btn-danger btn-sm mb-2" onclick="goToDetail(${film.id})">📖 Detay & Puanla</button>
+            ${film.trailer ? `<button class="btn btn-warning btn-sm mb-2" onclick="playTrailer('${film.trailer}')">🎬 Fragman</button>` : ''}
+            <button class="btn btn-outline-danger btn-sm" onclick="addToFavorites(${film.id})">⭐ Favori</button>
+          </div>
+        </div>
+      `;
+      const card = col.querySelector('.card');
+      const overlay = col.querySelector('.overlay');
+      card.addEventListener('mouseenter',()=>overlay.style.opacity='1');
+      card.addEventListener('mouseleave',()=>overlay.style.opacity='0');
+      return col;
+    }
+
+    // Fragman oynatma fonksiyonu
+    function playTrailer(trailerUrl) {
+      const iframe = document.getElementById('trailerIframe');
+      const modal = document.getElementById('trailerModal');
+      
+      iframe.src = trailerUrl + '?autoplay=1';
+      modal.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Fragman kapatma
+    function closeTrailer() {
+      const iframe = document.getElementById('trailerIframe');
+      const modal = document.getElementById('trailerModal');
+      
+      iframe.src = '';
+      modal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // ESC tuşu ile kapatma
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeTrailer();
+      }
+    });
+
+    // Filtreleme fonksiyonu
+    function filterFilms() {
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+      const selectedCategories = Array.from(document.getElementById('categoryFilter').selectedOptions).map(opt => opt.value);
+      const minRating = document.getElementById('ratingFilter').value;
+      const yearFrom = document.getElementById('yearFrom').value;
+      const yearTo = document.getElementById('yearTo').value;
+      const sortBy = document.getElementById('sortFilter').value;
+
+      let filteredFilms = [...allFilms];
+
+      // Arama filtresi
+      if (searchTerm) {
+        filteredFilms = filteredFilms.filter(film => 
+          film.title.toLowerCase().includes(searchTerm) ||
+          (film.category && film.category.toLowerCase().includes(searchTerm))
+        );
+      }
+
+      // Kategori filtresi
+      if (selectedCategories.length > 0) {
+        filteredFilms = filteredFilms.filter(film => 
+          selectedCategories.includes(film.category)
+        );
+      }
+
+      // Puan filtresi
+      if (minRating) {
+        filteredFilms = filteredFilms.filter(film => {
+          const avgRating = calculateAverageRating(film);
+          return avgRating >= parseFloat(minRating);
+        });
+      }
+
+      // Yıl filtresi
+      if (yearFrom) {
+        filteredFilms = filteredFilms.filter(film => 
+          film.year >= parseInt(yearFrom)
+        );
+      }
+      if (yearTo) {
+        filteredFilms = filteredFilms.filter(film => 
+          film.year <= parseInt(yearTo)
+        );
+      }
+
+      // Sıralama
+      switch(sortBy) {
+        case 'rating-desc':
+          filteredFilms.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
+          break;
+        case 'rating-asc':
+          filteredFilms.sort((a, b) => calculateAverageRating(a) - calculateAverageRating(b));
+          break;
+        case 'year-desc':
+          filteredFilms.sort((a, b) => b.year - a.year);
+          break;
+        case 'year-asc':
+          filteredFilms.sort((a, b) => a.year - b.year);
+          break;
+        case 'title':
+          filteredFilms.sort((a, b) => a.title.localeCompare(b.title));
+          break;
+        case 'user-rating':
+          // Kullanıcının puanladığı filmleri öne çıkar
+          filteredFilms.sort((a, b) => {
+            const userRatingA = getUserRating(a.id);
+            const userRatingB = getUserRating(b.id);
+            if (userRatingA && !userRatingB) return -1;
+            if (!userRatingA && userRatingB) return 1;
+            if (userRatingA && userRatingB) return userRatingB - userRatingA;
+            return calculateAverageRating(b) - calculateAverageRating(a);
+          });
+          break;
+        case 'popular':
+        default:
+          filteredFilms.sort((a, b) => calculateAverageRating(b) - calculateAverageRating(a));
+          break;
+      }
+
+      // Film sayısını güncelle
+      document.getElementById('filmCount').textContent = filteredFilms.length;
+
+      // Aktif filtreleri göster
+      updateActiveFilters(searchTerm, selectedCategories, minRating, yearFrom, yearTo);
+
+      // Filmleri göster
+      displayFilteredFilms(filteredFilms);
+    }
+
+    // Aktif filtreleri güncelle
+    function updateActiveFilters(search, categories, rating, fromYear, toYear) {
+      const filterTags = document.getElementById('filterTags');
+      filterTags.innerHTML = '';
+
+      const tags = [];
+
+      if (search) {
+        tags.push(`<span class="badge bg-danger me-2">Arama: "${search}"</span>`);
+      }
+
+      if (categories.length > 0) {
+        tags.push(`<span class="badge bg-warning me-2">Kategori: ${categories.join(', ')}</span>`);
+      }
+
+      if (rating) {
+        tags.push(`<span class="badge bg-info me-2">Puan: ${rating}+</span>`);
+      }
+
+      if (fromYear || toYear) {
+        const yearRange = `${fromYear || '1950'} - ${toYear || '2025'}`;
+        tags.push(`<span class="badge bg-success me-2">Yıl: ${yearRange}</span>`);
+      }
+
+      if (tags.length === 0) {
+        tags.push('<span class="badge bg-secondary">Tüm filmler</span>');
+      }
+
+      filterTags.innerHTML = tags.join('');
+    }
+
+    // Filtrelenmiş filmleri göster
+    function displayFilteredFilms(films) {
+      const allFilmsSection = document.getElementById('all-films');
+      const popularSection = document.getElementById('popular-films');
+      const newSection = document.getElementById('new-films');
+
+      // Tüm bölümleri temizle
+      allFilmsSection.innerHTML = '';
+      popularSection.innerHTML = '';
+      newSection.innerHTML = '';
+
+      if (films.length === 0) {
+        allFilmsSection.innerHTML = `
+          <div class="col-12 text-center py-5">
+            <h5 class="text-secondary">😞 Film bulunamadı</h5>
+            <p class="text-secondary">Filtreleri değiştirip tekrar deneyin.</p>
+          </div>
+        `;
+        return;
+      }
+
+      // Tüm filmleri göster
+      films.forEach(film => {
+        allFilmsSection.appendChild(createFilmCard(film));
+      });
+
+      // Popüler filmleri göster (rating 8.0+)
+      const popularFilms = films.filter(f => calculateAverageRating(f) >= 8.0);
+      if (popularFilms.length > 0) {
+        popularFilms.forEach(film => {
+          popularSection.appendChild(createFilmCard(film));
+        });
+      } else {
+        popularSection.innerHTML = '<div class="col-12 text-center text-secondary">Popüler film bulunamadı</div>';
+      }
+
+      // Yeni filmleri göster (2018+)
+      const newFilms = films.filter(f => f.year >= 2018);
+      if (newFilms.length > 0) {
+        newFilms.forEach(film => {
+          newSection.appendChild(createFilmCard(film));
+        });
+      } else {
+        newSection.innerHTML = '<div class="col-12 text-center text-secondary">Yeni film bulunamadı</div>';
+      }
+    }
+
+    // Filtreleri sıfırla
+    function resetFilters() {
+      document.getElementById('searchInput').value = '';
+      document.getElementById('categoryFilter').selectedIndex = -1;
+      document.getElementById('ratingFilter').value = '';
+      document.getElementById('yearFrom').value = '';
+      document.getElementById('yearTo').value = '';
+      document.getElementById('sortFilter').value = 'popular';
+      
+      filterFilms();
+    }
+
+    // Favorilere ekleme
+    function addToFavorites(filmId){
+      const film = allFilms.find(f => f.id === filmId);
+      if (!film) {
+        alert('Film bulunamadı!');
+        return;
+      }
+      
+      let favs = JSON.parse(localStorage.getItem('favorites')) || [];
+      if(!favs.some(f => f.id === film.id)){
+        favs.push(film);
+        localStorage.setItem('favorites', JSON.stringify(favs));
+        alert(`"${film.title}" favorilere eklendi!`);
+      } else {
+        alert(`"${film.title}" zaten favorilerinizde!`);
+      }
+    }
+
+    // Film detay sayfasına git
+    function goToDetail(filmId){
+      localStorage.setItem('detailFilmId', filmId);
+      window.location.href = "film-detay.html";
+    }
+
+    // Sayfa yüklendiğinde JSON'dan filmleri çek
+    document.addEventListener('DOMContentLoaded', function() {
+      const loadingSpinner = document.getElementById('loadingSpinner');
+      
+      // Yükleniyor göster
+      loadingSpinner.style.display = 'block';
+
+      fetch('data/filmler.json')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('JSON dosyası bulunamadı');
+          }
+          return response.json();
+        })
+        .then(films => {
+          allFilms = films;
+          console.log(`✅ ${films.length} film yüklendi`);
+          
+          // Filtre event'lerini ekle
+          document.getElementById('searchInput').addEventListener('input', filterFilms);
+          document.getElementById('categoryFilter').addEventListener('change', filterFilms);
+          document.getElementById('ratingFilter').addEventListener('change', filterFilms);
+          document.getElementById('yearFrom').addEventListener('input', filterFilms);
+          document.getElementById('yearTo').addEventListener('input', filterFilms);
+          document.getElementById('sortFilter').addEventListener('change', filterFilms);
+          document.getElementById('resetFilters').addEventListener('click', resetFilters);
+
+          // İlk filtreleme
+          filterFilms();
+        })
+        .catch(err => {
+          console.error('❌ Filmler yüklenemedi:', err);
+          // Fallback: Basit bir hata mesajı
+          document.getElementById('all-films').innerHTML = `
+            <div class="col-12 text-center py-5">
+              <h5 class="text-danger">❌ Filmler yüklenemedi</h5>
+              <p class="text-secondary">data/filmler.json dosyasını kontrol edin</p>
+              <p class="text-secondary">Hata: ${err.message}</p>
+            </div>
+          `;
+        })
+        .finally(() => {
+          // Yükleniyor gizle
+          loadingSpinner.style.display = 'none';
+        });
+    });
+  </script>
+</body>
+</html>

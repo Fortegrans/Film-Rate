@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FilmApp | Film Türleri</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-black fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand text-danger fw-bold fs-3" href="index.html">FilmApp</a>
+      <button class="navbar-toggler bg-danger" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-white" href="index.html">Ana Sayfa</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="index.html#popular-films">Popüler</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="index.html#new-films">Yeni</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="favoriler.html">Favoriler</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="login-panel.html">Giriş Yap/Üye Ol</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white active" href="#" id="turlerDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Türler
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end bg-dark" aria-labelledby="turlerDropdown">
+              <li><a class="dropdown-item text-white" href="turler.html#aksiyon">Aksiyon</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#gerilim">Gerilim</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#korku">Korku</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#polisiye">Polisiye</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#bilim-kurgu">Bilim Kurgu</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#belgesel">Belgesel</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#animasyon">Animasyon</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#anime">Anime</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#dram">Dram</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#komedi">Komedi</a></li>
+              <li><a class="dropdown-item text-white" href="turler.html#macera">Macera</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Türler Ana İçerik -->
+  <div class="container mt-5 pt-5">
+    <h2 class="mb-4 text-danger">🎬 Film Türleri</h2>
+    <p class="text-secondary mb-5">İlgi alanınıza göre filmleri keşfedin</p>
+
+    <!-- Aksiyon -->
+    <section id="aksiyon" class="mb-5">
+      <h4 class="mb-3 text-danger">💥 Aksiyon</h4>
+      <div class="row" id="aksiyon-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Bilim Kurgu -->
+    <section id="bilim-kurgu" class="mb-5">
+      <h4 class="mb-3 text-danger">🚀 Bilim Kurgu</h4>
+      <div class="row" id="bilim-kurgu-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Gerilim -->
+    <section id="gerilim" class="mb-5">
+      <h4 class="mb-3 text-danger">🔪 Gerilim</h4>
+      <div class="row" id="gerilim-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Anime -->
+    <section id="anime" class="mb-5">
+      <h4 class="mb-3 text-danger">🎎 Anime</h4>
+      <div class="row" id="anime-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Dram -->
+    <section id="dram" class="mb-5">
+      <h4 class="mb-3 text-danger">🎭 Dram</h4>
+      <div class="row" id="dram-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Komedi -->
+    <section id="komedi" class="mb-5">
+      <h4 class="mb-3 text-danger">😂 Komedi</h4>
+      <div class="row" id="komedi-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Korku -->
+    <section id="korku" class="mb-5">
+      <h4 class="mb-3 text-danger">👻 Korku</h4>
+      <div class="row" id="korku-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Polisiye -->
+    <section id="polisiye" class="mb-5">
+      <h4 class="mb-3 text-danger">🕵️ Polisiye</h4>
+      <div class="row" id="polisiye-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Belgesel -->
+    <section id="belgesel" class="mb-5">
+      <h4 class="mb-3 text-danger">📹 Belgesel</h4>
+      <div class="row" id="belgesel-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Animasyon -->
+    <section id="animasyon" class="mb-5">
+      <h4 class="mb-3 text-danger">🐭 Animasyon</h4>
+      <div class="row" id="animasyon-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+    <!-- Macera -->
+    <section id="macera" class="mb-5">
+      <h4 class="mb-3 text-danger">🏔️ Macera</h4>
+      <div class="row" id="macera-filmleri">
+        <!-- Filmler JavaScript ile eklenecek -->
+      </div>
+    </section>
+
+  </div>
+
+  <footer class="text-center py-3 mt-5 bg-black text-secondary">
+    © 2025 FilmApp | Tüm Hakları Saklıdır
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Tüm filmler - Her tür için 3'er film
+    const filmler = [
+      // AKSİYON (3 film)
+      {id:1,title:"The Dark Knight",category:"Aksiyon",image:"https://m.media-amazon.com/images/I/51NbVEuw1HL._AC_SL1024_.jpg",rating:9.0,year:2008},
+      {id:6,title:"Tenet",category:"Aksiyon",image:"https://m.media-amazon.com/images/I/71IhX+T0xNL._AC_SL1000_.jpg",rating:7.9,year:2020},
+      {id:7,title:"John Wick",category:"Aksiyon",image:"https://m.media-amazon.com/images/I/81F5PF9oHhL._AC_SL1500_.jpg",rating:7.4,year:2014},
+
+      // BİLİM KURGU (3 film)
+      {id:2,title:"Inception",category:"Bilim Kurgu",image:"https://m.media-amazon.com/images/I/81p+xe8cbnL._AC_SL1500_.jpg",rating:8.8,year:2010},
+      {id:5,title:"Interstellar",category:"Bilim Kurgu",image:"https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SL1500_.jpg",rating:8.6,year:2014},
+      {id:8,title:"The Matrix",category:"Bilim Kurgu",image:"https://m.media-amazon.com/images/I/51EG732BV3L._AC_SL1000_.jpg",rating:8.7,year:1999},
+
+      // GERİLİM (3 film)
+      {id:4,title:"Joker",category:"Gerilim",image:"https://m.media-amazon.com/images/I/71A5L9fT1zL._AC_SL1000_.jpg",rating:8.5,year:2019},
+      {id:9,title:"Seven",category:"Gerilim",image:"https://m.media-amazon.com/images/I/71M6rRhm1aL._AC_SL1500_.jpg",rating:8.6,year:1995},
+      {id:10,title:"Gone Girl",category:"Gerilim",image:"https://m.media-amazon.com/images/I/71FxgtKcOEL._AC_SL1500_.jpg",rating:8.1,year:2014},
+
+      // ANIME (3 film)
+      {id:3,title:"Spirited Away",category:"Anime",image:"https://m.media-amazon.com/images/I/71Q2C2A1fJL._AC_SL1200_.jpg",rating:8.6,year:2001},
+      {id:11,title:"Your Name",category:"Anime",image:"https://m.media-amazon.com/images/I/81aN2PiRy4L._AC_SL1500_.jpg",rating:8.2,year:2016},
+      {id:12,title:"Akira",category:"Anime",image:"https://m.media-amazon.com/images/I/81isnSC+5LL._AC_SL1500_.jpg",rating:8.0,year:1988},
+
+      // DRAM (3 film)
+      {id:13,title:"Forrest Gump",category:"Dram",image:"https://m.media-amazon.com/images/I/71eH-6d+MaL._AC_SL1500_.jpg",rating:8.8,year:1994},
+      {id:14,title:"The Shawshank Redemption",category:"Dram",image:"https://m.media-amazon.com/images/I/71JxA6I+sgL._AC_SL1500_.jpg",rating:9.3,year:1994},
+      {id:15,title:"The Godfather",category:"Dram",image:"https://m.media-amazon.com/images/I/71JxA6I+sgL._AC_SL1500_.jpg",rating:9.2,year:1972},
+
+      // KOMEDİ (3 film)
+      {id:16,title:"The Hangover",category:"Komedi",image:"https://m.media-amazon.com/images/I/81aN2PiRy4L._AC_SL1500_.jpg",rating:7.7,year:2009},
+      {id:17,title:"Superbad",category:"Komedi",image:"https://m.media-amazon.com/images/I/71cX-OQ0c2L._AC_SL1500_.jpg",rating:7.6,year:2007},
+      {id:18,title:"Step Brothers",category:"Komedi",image:"https://m.media-amazon.com/images/I/71eH-6d+MaL._AC_SL1500_.jpg",rating:6.9,year:2008},
+
+      // KORKU (3 film)
+      {id:19,title:"The Conjuring",category:"Korku",image:"https://m.media-amazon.com/images/I/81aN2PiRy4L._AC_SL1500_.jpg",rating:7.5,year:2013},
+      {id:20,title:"Hereditary",category:"Korku",image:"https://m.media-amazon.com/images/I/71cX-OQ0c2L._AC_SL1500_.jpg",rating:7.3,year:2018},
+      {id:21,title:"Get Out",category:"Korku",image:"https://m.media-amazon.com/images/I/71eH-6d+MaL._AC_SL1500_.jpg",rating:7.7,year:2017},
+
+      // POLİSİYE (3 film)
+      {id:22,title:"Se7en",category:"Polisiye",image:"https://m.media-amazon.com/images/I/71M6rRhm1aL._AC_SL1500_.jpg",rating:8.6,year:1995},
+      {id:23,title:"Zodiac",category:"Polisiye",image:"https://m.media-amazon.com/images/I/81aN2PiRy4L._AC_SL1500_.jpg",rating:7.7,year:2007},
+      {id:24,title:"Prisoners",category:"Polisiye",image:"https://m.media-amazon.com/images/I/71cX-OQ0c2L._AC_SL1500_.jpg",rating:8.1,year:2013},
+
+      // BELGESEL (3 film)
+      {id:25,title:"Our Planet",category:"Belgesel",image:"https://m.media-amazon.com/images/I/81aN2PiRy4L._AC_SL1500_.jpg",rating:9.3,year:2019},
+      {id:26,title:"The Social Dilemma",category:"Belgesel",image:"https://m.media-amazon.com/images/I/71cX-OQ0c2L._AC_SL1500_.jpg",rating:7.6,year:2020},
+      {id:27,title:"Free Solo",category:"Belgesel",image:"https://m.media-amazon.com/images/I/71eH-6d+MaL._AC_SL1500_.jpg",rating:8.1,year:2018},
+
+      // ANİMASYON (3 film)
+      {id:28,title:"Toy Story",category:"Animasyon",image:"https://m.media-amazon.com/images/I/81aN2PiRy4L._AC_SL1500_.jpg",rating:8.3,year:1995},
+      {id:29,title:"Finding Nemo",category:"Animasyon",image:"https://m.media-amazon.com/images/I/71cX-OQ0c2L._AC_SL1500_.jpg",rating:8.1,year:2003},
+      {id:30,title:"The Lion King",category:"Animasyon",image:"https://m.media-amazon.com/images/I/71eH-6d+MaL._AC_SL1500_.jpg",rating:8.5,year:1994},
+
+      // MACERA (3 film)
+      {id:31,title:"Indiana Jones",category:"Macera",image:"https://m.media-amazon.com/images/I/81aN2PiRy4L._AC_SL1500_.jpg",rating:8.4,year:1981},
+      {id:32,title:"Jurassic Park",category:"Macera",image:"https://m.media-amazon.com/images/I/71cX-OQ0c2L._AC_SL1500_.jpg",rating:8.1,year:1993},
+      {id:33,title:"Pirates of the Caribbean",category:"Macera",image:"https://m.media-amazon.com/images/I/71eH-6d+MaL._AC_SL1500_.jpg",rating:8.0,year:2003}
+    ];
+
+    // Film kartı oluştur
+    function createFilmCard(film) {
+      const col = document.createElement('div');
+      col.className = 'col-6 col-md-3 col-lg-2 mb-4';
+      col.innerHTML = `
+        <div class="card bg-black border-0 position-relative overflow-hidden">
+          <img src="${film.image}" class="card-img-top rounded-3" alt="${film.title}" style="height: 300px; object-fit: cover;">
+          <div class="card-body text-center">
+            <h6 class="card-title">${film.title}</h6>
+            <p class="text-secondary">⭐ ${film.rating} | ${film.year}</p>
+            <button class="btn btn-danger btn-sm" onclick="goToDetail(${film.id})">Detay</button>
+          </div>
+        </div>
+      `;
+      return col;
+    }
+
+    // Türlere göre filmleri yükle
+    function loadFilmsByCategory() {
+      const categories = [
+        'Aksiyon', 'Bilim Kurgu', 'Gerilim', 'Anime', 'Dram', 
+        'Komedi', 'Korku', 'Polisiye', 'Belgesel', 'Animasyon', 'Macera'
+      ];
+
+      categories.forEach(category => {
+        const containerId = category.toLowerCase().replace(' ', '-') + '-filmleri';
+        const container = document.getElementById(containerId);
+        
+        if (container) {
+          container.innerHTML = '';
+          const categoryFilms = filmler.filter(f => f.category === category);
+          
+          if (categoryFilms.length > 0) {
+            categoryFilms.forEach(film => container.appendChild(createFilmCard(film)));
+          } else {
+            container.innerHTML = '<p class="text-secondary">Bu kategoride henüz film bulunmuyor.</p>';
+          }
+        }
+      });
+    }
+
+    function goToDetail(filmId) {
+      localStorage.setItem('detailFilmId', filmId);
+      window.location.href = "film-detay.html";
+    }
+
+    document.addEventListener('DOMContentLoaded', loadFilmsByCategory);
+  </script>
+</body>
+</html>
